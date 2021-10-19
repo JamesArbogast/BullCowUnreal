@@ -7,19 +7,37 @@ void UBullCowCartridge::BeginPlay() // When the game starts
     PrintLine(TEXT("Moo there!"));
     PrintLine(TEXT("Guess the 4 letter word!")); //magic number remove
     PrintLine(TEXT("Press enter to continue..."));
+
+    SetUpGame();
+
+    //prompt player for guess
 }
 
 void UBullCowCartridge::OnInput(const FString& Input) // when the player hits enter
 {
     ClearScreen();
-    FString HiddenWord = TEXT("soup"); //move outside function
 
+    int32 WordLength = HiddenWord.Len();
     if(Input == HiddenWord)
     {
         PrintLine(TEXT("Moo Win!"));
     }
     else
     {
-        PrintLine(TEXT("Moo Lose!"));
+        if(Input.Len() != WordLength)
+        {
+            PrintLine(TEXT("The Hidden Word is 4 characters long, try again!"));
+        } 
+            PrintLine(TEXT("Moo Lose!"));
+            //lose a life
+            //show lives left
+            //restart play
     }
+}
+
+void UBullCowCartridge::SetUpGame()
+{
+    //set hidden word
+    HiddenWord = TEXT("soup");
+    Lives = 3;
 }
